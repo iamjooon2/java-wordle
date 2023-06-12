@@ -47,7 +47,7 @@ class WordTest {
     }
 
     @Test
-    void 해당_순서에_글자를_가지고_있는지_알_수_있다() {
+    void 해당_순서에_글자가_있는지_알_수_있다() {
         // given
         final Letter letter = new Letter("a");
         final Word word = new Word(List.of("a", "b", "c", "d", "e"));
@@ -55,11 +55,20 @@ class WordTest {
         // expect
         assertAll(
                 () -> assertThat(word.hasAt(0, letter)).isTrue(),
-                () -> assertThat(word.hasAt(1, letter)).isFalse(),
-                () -> assertThat(word.hasAt(2, letter)).isFalse(),
-                () -> assertThat(word.hasAt(3, letter)).isFalse(),
-                () -> assertThat(word.hasAt(4, letter)).isFalse()
+                () -> assertThat(word.hasAt(1, letter)).isFalse()
         );
     }
 
+    @Test
+    void 글자가_없는지_알_수_있다() {
+        // given
+        final Letter letter = new Letter("z");
+        final Word word = new Word(List.of("a", "b", "c", "d", "e"));
+
+        // when
+        final boolean flag = word.doesntHave(letter);
+
+        // then
+        assertThat(flag).isTrue();
+    }
 }

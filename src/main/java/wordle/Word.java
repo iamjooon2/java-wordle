@@ -27,6 +27,10 @@ public class Word {
         return source.isSame(target);
     }
 
+    public boolean doesntHave(final Letter target) {
+        return !letters.contains(target);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
