@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class AnswerFactory {
 
-    private static final String FILE_PATH = "src/resources/words.txt";
+    private static final String FILE_PATH = "src/main/resources/words.txt";
     private static final LocalDate DATE = LocalDate.of(2021, 6, 19);
 
     public List<String> create() throws IOException {
