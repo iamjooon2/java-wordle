@@ -1,4 +1,4 @@
-package wordle;
+package wordle.domain;
 
 import java.util.List;
 

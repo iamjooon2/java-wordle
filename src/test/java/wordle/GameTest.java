@@ -1,16 +1,19 @@
 package wordle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static wordle.Tile.GRAY;
-import static wordle.Tile.GREEN;
-import static wordle.Tile.YELLOW;
+import static wordle.domain.Tile.GRAY;
+import static wordle.domain.Tile.GREEN;
+import static wordle.domain.Tile.YELLOW;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
+import wordle.domain.Game;
+import wordle.domain.Result;
+import wordle.domain.Results;
+import wordle.domain.Tile;
 
 @DisplayNameGeneration(ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -22,10 +25,10 @@ class GameTest {
         final Game game = new Game(List.of("h", "a", "p", "p", "y"));
 
         // when
-        final List<Tile> result = game.play(List.of("a", "b", "c", "d", "e"));
+        final Results results = game.play(List.of("a", "b", "c", "d", "e"));
 
         // then
-        assertThat(result).containsExactly(YELLOW, GRAY, GRAY, GRAY, GRAY);
+        assertThat(results.getResults().get(0).getTiles()).containsExactly(YELLOW, GRAY, GRAY, GRAY, GRAY);
     }
 
     @Test
@@ -34,10 +37,10 @@ class GameTest {
         final Game game = new Game(List.of("h", "a", "p", "p", "y"));
 
         // when
-        final List<Tile> result = game.play(List.of("a", "a", "c", "d", "e"));
+        final Results results = game.play(List.of("a", "a", "c", "d", "e"));
 
         // then
-        assertThat(result).containsExactly(YELLOW, GREEN, GRAY, GRAY, GRAY);
+        assertThat(results.getResults().get(0).getTiles()).containsExactly(YELLOW, GREEN, GRAY, GRAY, GRAY);
     }
 
     @Test
@@ -46,10 +49,10 @@ class GameTest {
         final Game game = new Game(List.of("h", "a", "p", "p", "y"));
 
         // when
-        final List<Tile> result = game.play(List.of("p", "p", "h", "a", "y"));
+        final Results results = game.play(List.of("p", "p", "h", "a", "y"));
 
         // then
-        assertThat(result).containsExactly(YELLOW, YELLOW, YELLOW, YELLOW, GREEN);
+        assertThat(results.getResults().get(0).getTiles()).containsExactly(YELLOW, YELLOW, YELLOW, YELLOW, GREEN);
     }
 
 
@@ -59,10 +62,10 @@ class GameTest {
         final Game game = new Game(List.of("h", "a", "p", "p", "y"));
 
         // when
-        final List<Tile> result = game.play(List.of("h", "a", "p", "p", "y"));
+        final Results results = game.play(List.of("h", "a", "p", "p", "y"));
 
         // then
-        assertThat(result).containsExactly(GREEN, GREEN, GREEN, GREEN, GREEN);
+        assertThat(results.getResults().get(0).getTiles()).containsExactly(GREEN, GREEN, GREEN, GREEN, GREEN);
     }
 
     @Test
@@ -85,9 +88,5 @@ class GameTest {
                 () -> assertThat(results.get(2).getTiles()).containsExactly(GREEN, GREEN, GREEN, GREEN, GREEN)
         );
 
-
-
-        // then
     }
-
 }

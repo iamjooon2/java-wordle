@@ -19,12 +19,12 @@ public class Game {
         this.results = new Results();
     }
 
-    public List<Tile> play(final List<String> target) {
+    public Results play(final List<String> target) {
         final List<Tile> tiles = IntStream.range(0, WORD_VALID_SIZE)
                 .mapToObj(index -> getTile(new Letter(target.get(index)), index))
                 .collect(Collectors.toList());
         results.add(tiles);
-        return tiles;
+        return results;
     }
 
     private Tile getTile(final Letter letter, final int index) {
