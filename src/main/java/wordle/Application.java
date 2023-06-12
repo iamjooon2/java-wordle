@@ -6,8 +6,13 @@ import wordle.controller.WordleController;
 import wordle.domain.AnswerFactory;
 
 public class Application {
+
     public static void main(String[] args) throws IOException {
         final var wordleController = new WordleController(new AnswerFactory());
-        wordleController.run();
+        try {
+            wordleController.run();
+        } catch (final IllegalArgumentException error) {
+            System.out.println(error.getMessage());
+        }
     }
 }

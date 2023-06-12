@@ -25,6 +25,10 @@ public class Trial {
         return value;
     }
 
+    public void finish() {
+        value = MAX_TRIAL;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

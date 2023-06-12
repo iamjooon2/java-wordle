@@ -26,6 +26,8 @@ public class Game {
                 .mapToObj(index -> getTile(new Letter(target.get(index)), index))
                 .collect(Collectors.toList());
         results.add(tiles);
+        trial.plyOneTime();
+        validateWin(tiles);
         return results;
     }
 
@@ -37,6 +39,12 @@ public class Game {
             return GREEN;
         }
         return YELLOW;
+    }
+
+    private void validateWin(final List<Tile> tiles) {
+        if (tiles.stream().allMatch(tile -> tile == GREEN)) {
+            trial.finish();
+        }
     }
 
     public boolean isPlaying() {
