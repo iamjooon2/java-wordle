@@ -18,4 +18,9 @@ public class Results {
     public List<Result> getResults() {
         return results;
     }
+
+    public boolean hasWin() {
+        return results.stream()
+                .anyMatch(result -> result.isWin());
+    }
 }

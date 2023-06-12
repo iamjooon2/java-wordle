@@ -25,7 +25,6 @@ public class Game {
         final List<Tile> tiles = calculate(target);
         results.add(tiles);
         trial.plyOneTime();
-        validateWin(tiles);
         return results;
     }
 
@@ -45,14 +44,8 @@ public class Game {
         return YELLOW;
     }
 
-    private void validateWin(final List<Tile> tiles) {
-        if (tiles.stream().allMatch(tile -> tile == GREEN)) {
-            trial.finish();
-        }
-    }
-
     public boolean isPlaying() {
-        return trial.isLeft();
+        return trial.isLeft() && !results.hasWin();
     }
 
     public Trial getTrial() {

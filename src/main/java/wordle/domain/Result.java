@@ -13,4 +13,9 @@ public class Result {
     public List<Tile> getTiles() {
         return result;
     }
+
+    public boolean isWin() {
+        return result.stream()
+                .allMatch(tile -> tile == Tile.GREEN);
+    }
 }
