@@ -25,7 +25,7 @@ class LetterTest {
     @ParameterizedTest(name = "영어 소문자를 받아 생성된다: 입력 = {0}")
     @ValueSource(strings = {"a", "b", "y", "z"})
     void 영어_소문자를_받아_생성된다(final String value) {
-        // exepct
+        // expect
         assertDoesNotThrow(() -> new Letter(value));
     }
 

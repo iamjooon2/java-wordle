@@ -2,6 +2,7 @@ package wordle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -44,4 +45,21 @@ class WordTest {
         // then
         assertThat(firstWord).isEqualTo(secondWord);
     }
+
+    @Test
+    void 해당_순서에_글자를_가지고_있는지_알_수_있다() {
+        // given
+        final Letter letter = new Letter("a");
+        final Word word = new Word(List.of("a", "b", "c", "d", "e"));
+
+        // expect
+        assertAll(
+                () -> assertThat(word.hasAt(0, letter)).isTrue(),
+                () -> assertThat(word.hasAt(1, letter)).isFalse(),
+                () -> assertThat(word.hasAt(2, letter)).isFalse(),
+                () -> assertThat(word.hasAt(3, letter)).isFalse(),
+                () -> assertThat(word.hasAt(4, letter)).isFalse()
+        );
+    }
+
 }

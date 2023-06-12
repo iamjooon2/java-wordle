@@ -21,6 +21,14 @@ public class Letter {
         }
     }
 
+    public boolean isSame(final Letter letter) {
+        return this.value.equals(letter.value());
+    }
+
+    public String value() {
+        return value;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -36,9 +44,5 @@ public class Letter {
     @Override
     public int hashCode() {
         return Objects.hash(value);
-    }
-
-    public String value() {
-        return value;
     }
 }
