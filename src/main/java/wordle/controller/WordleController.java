@@ -17,6 +17,7 @@ public class WordleController {
     }
 
     public void run() throws IOException {
+        OutputView.printStartMessage();
         final List<String> answer = answerFactory.create();
         final Game game = new Game(answer);
 

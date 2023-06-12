@@ -13,6 +13,7 @@ public class InputView {
     }
 
     public static List<String> readAnswer(){
+        System.out.println("정답을 입력해주세요.");
         return Arrays.stream(scan.next().split(""))
                 .collect(Collectors.toList());
     }
