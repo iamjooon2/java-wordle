@@ -34,4 +34,8 @@ public class OutputView {
         System.out.println(view);
     }
 
+    public static void printResults(final Trial trial, final List<Result> results) {
+        System.out.println(trial.value() + " / " + Trial.MAX_TRIAL);
+        printResult(results);
+    }
 }

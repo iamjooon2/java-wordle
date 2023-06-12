@@ -1,9 +1,9 @@
-package wordle;
+package wordle.domain;
 
-import static wordle.Tile.GRAY;
-import static wordle.Tile.GREEN;
-import static wordle.Tile.YELLOW;
-import static wordle.Word.WORD_VALID_SIZE;
+import static wordle.domain.Tile.GRAY;
+import static wordle.domain.Tile.GREEN;
+import static wordle.domain.Tile.YELLOW;
+import static wordle.domain.Word.WORD_VALID_SIZE;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +13,12 @@ public class Game {
 
     private final Results results;
     private final Word answer;
+    private final Trial trial;
 
     public Game(final List<String> answer) {
         this.answer = new Word(answer);
         this.results = new Results();
+        this.trial = new Trial();
     }
 
     public Results play(final List<String> target) {
@@ -35,6 +37,14 @@ public class Game {
             return GREEN;
         }
         return YELLOW;
+    }
+
+    public boolean isPlaying() {
+        return trial.isLeft();
+    }
+
+    public Trial getTrial() {
+        return trial;
     }
 
     public List<Result> getResults() {
