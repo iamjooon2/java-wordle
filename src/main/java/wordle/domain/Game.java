@@ -22,13 +22,17 @@ public class Game {
     }
 
     public Results play(final List<String> target) {
-        final List<Tile> tiles = IntStream.range(0, WORD_VALID_SIZE)
-                .mapToObj(index -> getTile(new Letter(target.get(index)), index))
-                .collect(Collectors.toList());
+        final List<Tile> tiles = calculate(target);
         results.add(tiles);
         trial.plyOneTime();
         validateWin(tiles);
         return results;
+    }
+
+    private List<Tile> calculate(final List<String> target) {
+        return IntStream.range(0, WORD_VALID_SIZE)
+                .mapToObj(index -> getTile(new Letter(target.get(index)), index))
+                .collect(Collectors.toList());
     }
 
     private Tile getTile(final Letter letter, final int index) {
