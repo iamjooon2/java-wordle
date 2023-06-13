@@ -14,19 +14,13 @@ public class Letter {
     }
 
     private void validate(final String value) {
-        for (char charValue : value.toCharArray()) {
-            if (SMALL_Z < charValue || charValue < SMALL_A) {
-                throw new IllegalArgumentException("글자는 영어 소문자만 입력가능합니다.");
-            }
+        if (value.chars().anyMatch(this::isInvalidRange)) {
+            throw new IllegalArgumentException("글자는 영어 소문자만 입력가능합니다.");
         }
     }
 
-    public boolean isSame(final Letter letter) {
-        return this.value.equals(letter.value());
-    }
-
-    public String value() {
-        return value;
+    private boolean isInvalidRange(final int charValue) {
+        return charValue < SMALL_A || SMALL_Z < charValue;
     }
 
     @Override
