@@ -15,12 +15,12 @@ public class Results {
         results.add(new Result(tiles));
     }
 
-    public List<Result> getResults() {
-        return results;
-    }
-
     public boolean hasWin() {
         return results.stream()
-                .anyMatch(result -> result.isWin());
+                .anyMatch(Result::isWin);
+    }
+
+    public List<Result> getResults() {
+        return results;
     }
 }

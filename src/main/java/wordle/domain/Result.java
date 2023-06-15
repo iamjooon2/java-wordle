@@ -10,12 +10,12 @@ public class Result {
         this.result = result;
     }
 
-    public List<Tile> getTiles() {
-        return result;
-    }
-
     public boolean isWin() {
         return result.stream()
                 .allMatch(tile -> tile == Tile.GREEN);
+    }
+
+    public List<Tile> getTiles() {
+        return result;
     }
 }
