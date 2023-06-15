@@ -5,6 +5,8 @@ import static wordle.domain.Tile.GREEN;
 import static wordle.domain.Tile.YELLOW;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import wordle.domain.Result;
 import wordle.domain.Tile;
 import wordle.domain.Trial;
@@ -15,6 +17,8 @@ public class OutputView {
     private static final String GRAY_VIEW = "⬜";
     private static final String YELLOW_VIEW = "\uD83D\uDFE8";
     private static final String GREEN_VIEW = "\uD83D\uDFE9";
+    private static final String NEXT_LINE = System.lineSeparator();
+    private static final Map<Tile, String> TILE_VIEW = Map.of(GRAY, GRAY_VIEW, GREEN, GREEN_VIEW, YELLOW, YELLOW_VIEW);
 
     private OutputView() {
     }
@@ -23,24 +27,17 @@ public class OutputView {
         System.out.println(INIT_MESSAGE);
     }
 
-    public static void printResult(final List<Result> results) {
-        results.forEach(result -> printTile(result.getTiles()));
-    }
 
-    private static void printTile(final List<Tile> tiles) {
-        String view = "";
-        for (final Tile tile : tiles) {
-            if (tile == GRAY) {
-                view += GRAY_VIEW;
-            }
-            if (tile == GREEN) {
-                view += GREEN_VIEW;
-            }
-            if (tile == YELLOW) {
-                view += YELLOW_VIEW;
-            }
-        }
-        System.out.println(view);
+    public static void printResult(final List<Result> results) {
+        final String result = results.stream()
+                .map(it -> generateResult(it.getTiles()))
+                .collect(Collectors.joining(NEXT_LINE));
+        System.out.println(result);
+    }
+    private static String generateResult(final List<Tile> tiles) {
+        return tiles.stream()
+                .map(TILE_VIEW::get)
+                .collect(Collectors.joining());
     }
 
     public static void printResults(final Trial trial, final List<Result> results) {
