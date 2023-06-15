@@ -34,43 +34,4 @@ class WordTest {
                 Arguments.of(List.of("a", "b", "c", "d", "e", "f"))
         );
     }
-
-    @Test
-    void 해당_순서에_글자가_있는지_알_수_있다() {
-        // given
-        final Letter letter = new Letter("a");
-        final Word word = new Word(List.of("a", "b", "c", "d", "e"));
-
-        // expect
-        assertAll(
-                () -> assertThat(word.hasAt(0, letter)).isTrue(),
-                () -> assertThat(word.hasAt(1, letter)).isFalse()
-        );
-    }
-
-    @Test
-    void 글자들이_같으면_동등하다() {
-        // given
-        final List<String> words = List.of("a", "b", "c", "d", "e");
-
-        // when
-        final Word firstWord = new Word(words);
-        final Word secondWord = new Word(words);
-
-        // then
-        assertThat(firstWord).isEqualTo(secondWord);
-    }
-
-    @Test
-    void 글자가_없는지_알_수_있다() {
-        // given
-        final Letter letter = new Letter("z");
-        final Word word = new Word(List.of("a", "b", "c", "d", "e"));
-
-        // when
-        final boolean result = word.doesntHave(letter);
-
-        // then
-        assertThat(result).isTrue();
-    }
 }

@@ -1,13 +1,6 @@
 package wordle.domain;
 
-import static wordle.domain.Tile.GRAY;
-import static wordle.domain.Tile.GREEN;
-import static wordle.domain.Tile.YELLOW;
-import static wordle.domain.Word.WORD_VALID_SIZE;
-
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Game {
 
@@ -22,26 +15,11 @@ public class Game {
     }
 
     public Results play(final List<String> target) {
-        final List<Tile> tiles = calculate(target);
+        final Word word = new Word(target);
+        final List<Tile> tiles = answer.match(word);
         results.add(tiles);
         trial.plyOneTime();
         return results;
-    }
-
-    private List<Tile> calculate(final List<String> target) {
-        return IntStream.range(0, WORD_VALID_SIZE)
-                .mapToObj(index -> getTile(new Letter(target.get(index)), index))
-                .collect(Collectors.toList());
-    }
-
-    private Tile getTile(final Letter letter, final int index) {
-        if (answer.doesntHave(letter)) {
-            return GRAY;
-        }
-        if (answer.hasAt(index, letter)) {
-            return GREEN;
-        }
-        return YELLOW;
     }
 
     public boolean isPlaying() {

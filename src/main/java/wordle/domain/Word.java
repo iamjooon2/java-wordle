@@ -1,11 +1,16 @@
 package wordle.domain;
 
+import static wordle.domain.Tile.GRAY;
+import static wordle.domain.Tile.GREEN;
+import static wordle.domain.Tile.YELLOW;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Word {
-    public static final int WORD_VALID_SIZE = 5;
+    private static final int VALID_WORD_SIZE = 5;
 
     private final List<Letter> letters;
 
@@ -17,18 +22,38 @@ public class Word {
     }
 
     private void validate(final List<String> value) {
-        if (value.size() != WORD_VALID_SIZE) {
-            throw new IllegalArgumentException(String.format("답안은 총 %d글자여야 합니다.", WORD_VALID_SIZE));
+        if (value.size() != VALID_WORD_SIZE) {
+            throw new IllegalArgumentException(String.format("답안은 총 %d글자여야 합니다.", VALID_WORD_SIZE));
         }
     }
 
-    public boolean hasAt(final int index, final Letter target) {
-        final Letter source = letters.get(index);
-        return source.isSame(target);
+    public List<Tile> match(final Word target) {
+        return IntStream.range(0, VALID_WORD_SIZE)
+                .mapToObj(index -> getTile(target.get(index), index))
+                .collect(Collectors.toList());
     }
 
-    public boolean doesntHave(final Letter target) {
+    private Tile getTile(final Letter letter, final int index) {
+        if (doesntHave(letter)) {
+            return GRAY;
+        }
+        if (hasAt(index, letter)) {
+            return GREEN;
+        }
+        return YELLOW;
+    }
+
+    private boolean hasAt(final int index, final Letter target) {
+        final Letter source = letters.get(index);
+        return source.equals(target);
+    }
+
+    private boolean doesntHave(final Letter target) {
         return !letters.contains(target);
+    }
+
+    public Letter get(final int index) {
+        return letters.get(index);
     }
 
     @Override
