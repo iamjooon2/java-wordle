@@ -23,7 +23,7 @@ class WordTest {
     void 답안의_글자는_다섯자여야_한다(final List<String> wrongSizeLetters) {
 
         // then
-        assertThatThrownBy(() -> new Word(wrongSizeLetters))
+        assertThatThrownBy(() -> Word.from(wrongSizeLetters))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("5글자");
     }

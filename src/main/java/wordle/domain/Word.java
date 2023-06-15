@@ -14,15 +14,20 @@ public class Word {
 
     private final List<Letter> letters;
 
-    public Word(final List<String> letters) {
-        validate(letters);
-        this.letters = letters.stream()
-                .map(Letter::new)
-                .collect(Collectors.toList());
+    private Word(final List<Letter> letters) {
+        this.letters = letters;
     }
 
-    private void validate(final List<String> value) {
-        if (value.size() != VALID_WORD_SIZE) {
+    public static Word from(final List<String> values) {
+        validate(values);
+        final List<Letter> letters = values.stream()
+                .map(Letter::new)
+                .collect(Collectors.toList());
+        return new Word(letters);
+    }
+
+    private static void validate(final List<String> values) {
+        if (values.size() != VALID_WORD_SIZE) {
             throw new IllegalArgumentException(String.format("답안은 총 %d글자여야 합니다.", VALID_WORD_SIZE));
         }
     }

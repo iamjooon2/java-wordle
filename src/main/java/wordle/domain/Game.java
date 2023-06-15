@@ -9,13 +9,13 @@ public class Game {
     private final Trial trial;
 
     public Game(final List<String> answer) {
-        this.answer = new Word(answer);
+        this.answer = Word.from(answer);
         this.results = new Results();
         this.trial = new Trial();
     }
 
     public Results play(final List<String> target) {
-        final Word word = new Word(target);
+        final Word word = Word.from(target);
         final List<Tile> tiles = answer.match(word);
         results.add(tiles);
         trial.plyOneTime();
